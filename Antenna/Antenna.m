@@ -154,7 +154,8 @@ inManagedObjectContext:(NSManagedObjectContext *)context;
     if ([messageOrPayload isKindOfClass:[NSDictionary class]]) {
         mutablePayload = [messageOrPayload mutableCopy];
     } else if (messageOrPayload) {
-        mutablePayload = [NSMutableDictionary dictionaryWithObject:messageOrPayload forKey:@"message"];
+        NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        mutablePayload = [NSMutableDictionary dictionaryWithObjectsAndKeys:messageOrPayload, @"message", idfv, @"idfv", nil];
     }
 
     [self.defaultPayload enumerateKeysAndObjectsUsingBlock:^(id key, id obj, __unused BOOL *stop) {
